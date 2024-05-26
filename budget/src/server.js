@@ -55,7 +55,7 @@ app.get('/income', (req, res) => {
   });
 });
 app.get('/income_graph', (req, res) => {
-  const sql = 'SELECT id,food FROM incom';
+  const sql = 'SELECT * FROM summary';
   connection.query(sql, (err, results) => {
     if (err) {
       console.error('Error fetching income:', err);

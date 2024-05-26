@@ -90,7 +90,7 @@ const App = () => {
           })}
         />
         <Drawer.Screen 
-          name="Expenses" 
+          name="Today Expenses" 
           component={expense} 
           options={({ focused, color, size }) => ({
             drawerIcon: ({ color, size }) => getDrawerIcon('Expenses', focused, color, size),
