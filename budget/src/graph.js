@@ -22,7 +22,7 @@ const App = () => {
   const [lcl_m, setLCL_m] = useState(null);
 
   useEffect(() => {
-    axios.get('http://192.168.43.96:3000/income_graph') // Adjust the URL to match your backend server
+    axios.get('http://192.168.189.5:3000/income_graph') // Adjust the URL to match your backend server
       .then(response => {
         setData(response.data);
         const f = response.data.map(item => item.food);
@@ -79,9 +79,7 @@ const App = () => {
 }
 
 
-  const cl = 60;
-  const ucl = 80;
-  const lcl = 40;
+ 
 
   const label=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   const chartConfig = {

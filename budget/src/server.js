@@ -162,8 +162,48 @@ app.get('/summary/aggregates', (req, res) => {
 });
 
 
+app.post('/signup', (req, res) => {
+  const { username, userid,  email, password, birthdate } = req.body;
+  const query = `INSERT INTO student (username, userid,  email, password, birthdate) VALUES (?, ?, ?, ?, ?)`;
+  
+  // Assuming `connection` is defined and exported from your database connection module
+
+  connection.query(query, [username, userid,  email, password, birthdate], (err, result) => {
+    if (err) {
+      console.error('Error inserting data:', err);
+      res.status(500).send('Error inserting data');
+      return;
+    }
+    res.send({ success: true, id: result.insertId });
+  });
+});
 
 
+
+app.post('/login', (req, res) => {
+  const { userid, password } = req.body;
+  const query = 'SELECT * FROM student WHERE userid = ? AND password = ?';
+  connection.query(query, [userid, password], (err, results) => {
+      if (err) throw err;
+      if (results.length > 0) {
+          res.json({ success: true, message: 'Login successful' });
+      } else {
+          res.json({ success: false, message: 'Invalid credentials' });
+      }
+  });
+});
+
+app.get('/exp', (req, res) => {
+  const query = 'SELECT * FROM expenses';
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      res.status(500).send('Server error');
+      return;
+    }
+    res.json(results);
+  });
+});
 
 // Start server
 app.listen(port, () => {
