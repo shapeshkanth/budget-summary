@@ -10,6 +10,7 @@ import expense from './expense';
 import graph from './graph'; 
 import summary from './summary';
 import details from './details';
+import logout from './LogoutScreen';
 
 const Drawer = createDrawerNavigator();
 const SERVER_URL = 'http://192.168.189.5:3000';
@@ -65,6 +66,9 @@ const getDrawerIcon = (route, focused, color, size) => {
     case 'Details':
       iconName = focused ? 'account-details' : 'account-details-outline';
       break;
+    case 'Logout':
+      iconName = focused ? 'logout' : 'logout-variant';
+      break;
     default:
       iconName = focused ? 'information' : 'information-outline';
   }
@@ -109,6 +113,11 @@ const IndexScreen = () => {
         name="Details" 
         component={details} 
         options={{ title: 'Details' }}
+      />
+      <Drawer.Screen 
+        name="Logout" 
+        component={logout} 
+        options={{ title: 'Logout' }}
       />
     </Drawer.Navigator>
   );
