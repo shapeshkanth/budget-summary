@@ -182,16 +182,18 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { userid, password } = req.body;
-  const query = 'SELECT * FROM student WHERE userid = ? AND password = ?';
+  const query = 'SELECT username, email FROM student WHERE userid = ? AND password = ?';
   connection.query(query, [userid, password], (err, results) => {
       if (err) throw err;
       if (results.length > 0) {
-          res.json({ success: true, message: 'Login successful' });
+          const { username, email } = results[0];
+          res.json({ success: true, message: 'Login successful', username, email });
       } else {
           res.json({ success: false, message: 'Invalid credentials' });
       }
   });
 });
+
 
 app.get('/exp', (req, res) => {
   const query = 'SELECT * FROM expenses';
@@ -204,6 +206,21 @@ app.get('/exp', (req, res) => {
     res.json(results);
   });
 });
+
+
+app.post('/addExpense', (req, res) => {
+  const { name, amount, category } = req.body;
+  const query = 'INSERT INTO expenses (name, amount, category) VALUES (?, ?, ?)';
+  connection.query(query, [name, amount, category], (err, result) => {
+    if (err) throw err;
+    res.send({ id: result.insertId, name, amount, category });
+  });
+});
+
+app.use(bodyParser.json());
+
+// Endpoint to fetch user details
+
 
 // Start server
 app.listen(port, () => {

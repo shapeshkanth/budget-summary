@@ -10,11 +10,10 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     try {
         const response = await axios.post('http://192.168.189.5:3000/login', { userid, password });
-        const { success, message } = response.data;
-
+        const { success, message, username, email } = response.data;
         if (success) {
             Alert.alert('Success', message);
-            navigation.replace('Index'); // Navigating to the App component on successful login
+            navigation.replace('Index', { userid, username, email }); // Navigating to the App component on successful login
         } else {
             Alert.alert('Error', message);
         }

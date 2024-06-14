@@ -51,8 +51,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.headtext}>Last 30 days summary</Text>
-      <Text style={styles.textcontainer}>this month total income is</Text>
-      <Text style={styles.textcontainer}>this month total expences is</Text>
+    
       <Text style={styles.textcontainer}>Balance amount</Text>
       {incomesAggregates && (
       <View style={styles.component1}>

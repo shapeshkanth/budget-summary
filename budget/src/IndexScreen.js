@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from 'react-native';
 import  { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerIt } from '@react-navigation/drawer';
+import { useRoute } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
 import { PieChart } from 'react-native-chart-kit';
 import axios from 'axios';
@@ -29,6 +30,8 @@ const ProgressBar = ({ label, progress }) => {
 
 
 const CustomDrawerContent = (props) => {
+const route = useRoute();
+const { userid, username, email } = route.params;
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerHeader}>
@@ -37,8 +40,8 @@ const CustomDrawerContent = (props) => {
           source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
           size="large"
         />
-        <Text style={styles.username}>John Doe</Text>
-        <Text style={styles.userEmail}>john.doe@example.com</Text>  
+        <Text style={styles.username}>{username}</Text>
+        <Text style={styles.userEmail}>{email}</Text>  
       </View>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
@@ -228,7 +231,8 @@ const styles = StyleSheet.create({
       },
       userEmail: {
         fontSize: 14,
-        color: 'white',
+        color: 'black',
+        marginTop:-7,
       },
       content: {
         flex: 1,

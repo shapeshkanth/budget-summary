@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get('http://192.168.189.5:3000/expenses');
+      const response = await axios.get('http://192.168.189.5:3000/exp');
       setExpenses(response.data);
     } catch (error) {
       console.error(error);
