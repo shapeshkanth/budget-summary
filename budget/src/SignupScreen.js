@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Alert, Text } from 'react-native';
+import { View, Button, StyleSheet, Alert, } from 'react-native';
+import { TextInput, Title, Text } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 
@@ -32,13 +33,16 @@ const SignupScreen = ({ navigation }) => {
           }
       
           try {
-            axios.post('http://192.168.189.5:3000/signup', {
+            axios.post('http://192.168.169.5:3000/signup', {
               username,
               userid,
               email,
               password,
               birthdate,
             });  
+            Alert.alert('Success', 'Signup successful!');
+            navigation.goBack();
+            
           } catch (error) {
             console.error('Error signing in:', error);
             Alert.alert('Error', 'Failed to sign in. Please try again.');
@@ -71,35 +75,41 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-    <Button title="Back to Login" onPress={() => navigation.goBack()} />
+      <View style={styles.backbutton}>
+    <Button title="Back"  onPress={() => navigation.goBack()} />
+      </View>
+      <Title style={styles.title}>Signin</Title>
+
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        label="Username"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
-        placeholder="User ID (e.g., 2019/ASP/87)"
+        label="User ID"
         value={userid}
         onChangeText={setUserId} // Allow the user to type freely
         onBlur={handleUserIdBlur} // Validate format when focus is lost
       />
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        label="Email"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
       />
       <TextInput
         style={styles.input}
-        placeholder="Password..."
+        label="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Select Birthdate" onPress={() => setShowDatePicker(true)} />
+      <View style={styles.datebutton}>
+      <Button title="Birthdate" onPress={() => setShowDatePicker(true)} />
+      </View> 
       {showDatePicker && (
         <DateTimePicker
           value={birthdate}
@@ -109,7 +119,9 @@ const SignupScreen = ({ navigation }) => {
         />
       )}
       {displayDate !== '' && <Text style={styles.selectedDateText}>Birthdate: {displayDate}</Text>}
-      <Button title="Sign In"  style={styles.button} onPress={handleSignIn} />
+      <View   style={styles.button}>
+      <Button title="Sign In" onPress={handleSignIn} />
+    </View>
     </View>
   );
 };
@@ -123,6 +135,31 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 8,
     fontSize: 18,
+  },
+  input: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center', // Center-align the title
+  },
+  button: {
+ marginTop: 20, 
+  },
+  backbutton :{
+   width:100,
+   marginTop:-20,
+   marginBottom:10,
+  },
+  datebutton :{
+    width:100,
   },
 });
 

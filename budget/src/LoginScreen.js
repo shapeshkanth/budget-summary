@@ -9,7 +9,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-        const response = await axios.post('http://192.168.189.5:3000/login', { userid, password });
+        const response = await axios.post('http://192.168.169.5:3000/login', { userid, password });
         const { success, message, username, email } = response.data;
         if (success) {
             Alert.alert('Success', message);
@@ -54,16 +54,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
+    backgroundColor: '#ffffff', // Optional: Set background color
   },
   label: {
     marginBottom: 8,
   },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center', // Center-align the title
+  },
+
+
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 16,
     paddingLeft: 8,
+  },
+  signUpLink: {
+    alignSelf: 'flex-end',
+    marginTop: 0,
+  },
+  signUpText: {
+    fontSize: 16,
+    color: '#007bff',
+  },
+  button: {
+    marginTop: 24,
+    height: 40,
+    justifyContent: 'center',
+    backgroundColor: '#410863', // Example color, customize as needed
   },
 });
 

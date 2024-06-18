@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get('http://192.168.189.5:3000/exp');
+      const response = await axios.get('http://192.168.169.5:3000/exp');
       setExpenses(response.data);
     } catch (error) {
       console.error(error);
@@ -25,7 +25,7 @@ const App = () => {
   const handleAddExpense = async () => {
     if (expenseName && amount && category) {
       try {
-        const response = await axios.post('http://192.168.189.5:3000/addExpense', {
+        const response = await axios.post('http://192.168.169.5:3000/addExpense', {
           name: expenseName,
           amount,
           category
@@ -61,7 +61,6 @@ const App = () => {
           <Picker.Item label="Transport" value="travel" />
           <Picker.Item label="Medicine" value="medicine" />
           <Picker.Item label="Shopping" value="shopping" />
-          <Picker.Item label="Entertainment" value="Entertainment" />
           <Picker.Item label="Others" value="others" />
         </Picker>
 

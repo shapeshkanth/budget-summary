@@ -4,26 +4,26 @@ import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input';
 import _ from 'lodash';
 
-const SERVER_URL = 'http://192.168.189.5:3000';
+const SERVER_URL = 'http://192.168.169.5:3000';
 
 const IncomeScreen = () => {
   const [query, setQuery] = useState('');
   const [amount, setAmount] = useState('');
-  const [incomeId, setId] = useState('');
-  const [incomes, setIncomes] = useState([]);
+  const [expId, setId] = useState('');
+  const [exp, setexp] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    fetchIncomes();
+    fetchExp();
     fetchData();
   }, []);
 
-  const fetchIncomes = async () => {
+  const fetchExp = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}/income`);
-      setIncomes(response.data);
+      const response = await axios.get(`${SERVER_URL}/expences`);
+      setexp(response.data);
     } catch (error) {
       console.error('Error fetching incomes:', error);
     }
@@ -48,17 +48,17 @@ const IncomeScreen = () => {
     setQuery(query);
   }, 300);
 
-  const handleEdit = (incomeId, incomeName, amount) => {
+  const handleEdit = (eId, eName, amount) => {
     setIsEditMode(true);
-    setQuery(incomeName);
+    setQuery(eName);
     setAmount(amount.toString());
-    setId(incomeId);
+    setId(eId);
   };
 
   const update = async () => {
     try {
-      await axios.put(`${SERVER_URL}/income/${incomeId}`, { income_name: query, amount });
-      fetchIncomes();
+      await axios.put(`${SERVER_URL}/expences/${expId}`, { expences_name: query, amount });
+      fetchExp();
       setQuery('');
       setAmount('');
       setIsEditMode(false);
@@ -71,8 +71,8 @@ const IncomeScreen = () => {
 
   const createIncome = async () => {
     try {
-      await axios.post(`${SERVER_URL}/income`, { income_name: query, amount });
-      fetchIncomes();
+      await axios.post(`${SERVER_URL}/expences`, { expences_name: query, amount });
+      fetchExp();
       setQuery('');
       setAmount('');
       Alert.alert('Success', 'Income created successfully!', [{ text: 'OK' }], { cancelable: false });
@@ -81,10 +81,10 @@ const IncomeScreen = () => {
     }
   };
 
-  const handleDelete = async (incomeId) => {
+  const handleDelete = async (expId) => {
     try {
-      await axios.delete(`${SERVER_URL}/income/${incomeId}`);
-      fetchIncomes();
+      await axios.delete(`${SERVER_URL}/expences/${expId}`);
+      fetchExp();
       Alert.alert('Success', 'Income deleted successfully!', [{ text: 'OK' }], { cancelable: false });
     } catch (error) {
       console.error('Error deleting income:', error);
@@ -121,7 +121,7 @@ const IncomeScreen = () => {
           data={filteredData}
           defaultValue={query}
           onChangeText={(text) => findData(text)}
-          placeholder="Enter income name"
+          placeholder="Enter Expences name"
           flatListProps={{
             keyExtractor: item => item.id.toString(),
             renderItem: renderItem,
@@ -137,23 +137,23 @@ const IncomeScreen = () => {
         {isEditMode ? (
           <Button title="Update" onPress={update} style={styles.updateButton} />
         ) : (
-          <Button title="Add Income" onPress={createIncome} />
+          <Button title="Add Expences" onPress={createIncome} />
         )}
       </View>
       <View style={styles.head}>
-        <Text style={styles.income}>Income</Text>
+        <Text style={styles.income}>Expences</Text>
         <Text style={styles.amount}>Amount</Text>
         <Text style={styles.action}>Action</Text>
       </View>
       <FlatList
-        data={incomes}
+        data={exp}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text>{item.income_name}</Text>
+            <Text>{item.expences_name}</Text>
             <Text>{item.amount}</Text>
             <View style={styles.butt}>
-              <TouchableOpacity style={styles.edit} onPress={() => handleEdit(item.id, item.income_name, item.amount)}>
+              <TouchableOpacity style={styles.edit} onPress={() => handleEdit(item.id, item.expences_name, item.amount)}>
                 <Text>Edit</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.delete} onPress={() => confirmDelete(item.id)}>

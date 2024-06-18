@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const SERVER_URL = 'http://192.168.189.5:3000'; // Update with your server URL
+const SERVER_URL = 'http://192.168.169.5:3000'; // Update with your server URL
 
 const IncomeScreen = () => {
   const [incomeName, setIncomeName] = useState('');

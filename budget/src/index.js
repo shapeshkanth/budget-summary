@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import axios from 'axios';
 
-const SERVER_URL = 'http://192.168.189.5:3000';
+const SERVER_URL = 'http://192.168.169.5:3000';
 const ProgressBar = ({ label, progress }) => {
   // Generate a random hue value between 0 and 360
   const hue = Math.floor(Math.random() * 360);
@@ -21,7 +21,12 @@ const ChartExample = () => {
   const [incomes, setIncomes] = useState([]);
 
   useEffect(() => {
-    fetchIncomes();
+    const interval = setInterval(() => {
+      fetchIncomes();
+    }, 1000); // Fetch data every second
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const fetchIncomes = async () => {
