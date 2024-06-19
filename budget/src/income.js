@@ -35,6 +35,10 @@ const IncomeScreen = () => {
 
   };
   const update = async () => {
+    if (incomeName.trim() === '' || amount.trim() === '') {
+      Alert.alert('Error', 'Income name and amount cannot be empty.');
+      return;
+    }
     try {
       await axios.put(`${SERVER_URL}/income/${incomeId}`, { income_name: incomeName, amount });
       fetchIncomes();
@@ -65,6 +69,10 @@ const IncomeScreen = () => {
   
   
   const createIncome = async () => {
+    if (incomeName.trim() === '' || amount.trim() === '') {
+      Alert.alert('Error', 'Income name and amount cannot be empty.');
+      return;
+    }
     try {
       await axios.post(`${SERVER_URL}/income`, { income_name: incomeName, amount });
       fetchIncomes();

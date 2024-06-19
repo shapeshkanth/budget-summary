@@ -56,6 +56,10 @@ const IncomeScreen = () => {
   };
 
   const update = async () => {
+    if (query.trim() === '' || amount.trim() === '') {
+      Alert.alert('Error', 'Expense name and amount cannot be empty.');
+      return;
+    }
     try {
       await axios.put(`${SERVER_URL}/expences/${expId}`, { expences_name: query, amount });
       fetchExp();
@@ -70,6 +74,10 @@ const IncomeScreen = () => {
   };
 
   const createIncome = async () => {
+    if (query.trim() === '' || amount.trim() === '') {
+      Alert.alert('Error', 'Expense name and amount cannot be empty.');
+      return;
+    }
     try {
       await axios.post(`${SERVER_URL}/expences`, { expences_name: query, amount });
       fetchExp();
