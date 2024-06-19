@@ -102,7 +102,11 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.headtext}>Last 30 days summary</Text>
-      <Text style={styles.textcontainer}>Balance amount: {balance}</Text>
+      {balance < 300 ? (
+        <Text style={[styles.textcontainer, { color: bgColor }]}>Balance amount: {balance}</Text>
+      ) : (
+        <Text style={styles.textcontainer}>Balance amount: {balance}</Text>
+      )}
       {incomesAggregates && (
         <View style={styles.component1}>
           <View style={[styles.component, { backgroundColor: '#ccc' }]}>

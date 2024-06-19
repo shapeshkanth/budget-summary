@@ -374,7 +374,17 @@ app.get('/last-expense', (req, res) => {
   });
 });
 // Endpoint to fetch user details
-
+app.get('/log', (req, res) => {
+  const query = 'SELECT * FROM student';
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      res.status(500).send('Server error');
+      return;
+    }
+    res.json(results);
+  });
+});
 
 // Start server
 app.listen(port, () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import { TextInput, Button, Title, Text } from 'react-native-paper';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import axios from 'axios';
 const LoginScreen = ({ navigation }) => {
     const [userid, setUserid] = useState('');
     const [password, setPassword] = useState('');
+    const [data, setData] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -22,6 +23,20 @@ const LoginScreen = ({ navigation }) => {
         Alert.alert('Error', 'Something went wrong');
     }
 };
+const fetchData = async () => {
+  try {
+      const response = await axios.get('http://192.168.169.5:3000/log'); // Replace with your actual endpoint
+      setData(response.data);
+  } catch (error) {
+      console.error(error);
+  }
+};
+
+useEffect(() => {
+  const intervalId = setInterval(fetchData, 1000); // Fetch data every second
+
+  return () => clearInterval(intervalId); // Cleanup the interval on component unmount
+}, []);
 
   return (
     <View style={styles.container}>
