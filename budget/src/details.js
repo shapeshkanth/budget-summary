@@ -13,9 +13,18 @@ const App = () => {
     fetchExpenses();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchExpenses();
+    }, 1000); // Fetch data every second
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get('http://192.168.169.5:3000/exp');
+      const response = await axios.get('http://192.168.176.191:3000/exp');
       setExpenses(response.data);
     } catch (error) {
       console.error(error);
@@ -25,7 +34,7 @@ const App = () => {
   const handleAddExpense = async () => {
     if (expenseName && amount && category) {
       try {
-        const response = await axios.post('http://192.168.169.5:3000/addExpense', {
+        const response = await axios.post('http://192.168.176.191:3000/addExpense', {
           name: expenseName,
           amount,
           category

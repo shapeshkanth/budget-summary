@@ -10,7 +10,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-        const response = await axios.post('http://192.168.169.5:3000/login', { userid, password });
+        const response = await axios.post('http://192.168.176.191:3000/login', { userid, password });
         const { success, message, username, email } = response.data;
         if (success) {
             Alert.alert('Success', message);
@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
 };
 const fetchData = async () => {
   try {
-      const response = await axios.get('http://192.168.169.5:3000/log'); // Replace with your actual endpoint
+      const response = await axios.get('http://192.168.176.191:3000/log'); // Replace with your actual endpoint
       setData(response.data);
   } catch (error) {
       console.error(error);

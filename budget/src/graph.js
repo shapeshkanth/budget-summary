@@ -22,7 +22,7 @@ const App = () => {
   const [lcl_m, setLCL_m] = useState(null);
 
   const fetchIncomes = () => {
-    axios.get('http://192.168.169.5:3000/income_graph') // Adjust the URL to match your backend server
+    axios.get('http://192.168.176.191:3000/income_graph') // Adjust the URL to match your backend server
       .then(response => {
         setData(response.data);
         const f = response.data.map(item => item.food);
@@ -43,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     fetchIncomes();
-    const interval = setInterval(() => {
+   const interval = setInterval(() => {
       fetchIncomes();
     }, 1000); // Fetch data every second
 

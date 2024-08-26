@@ -14,7 +14,7 @@ import details from './details';
 import logout from './LogoutScreen';
 
 const Drawer = createDrawerNavigator();
-const SERVER_URL = 'http://192.168.169.5:3000';
+const SERVER_URL = 'http://192.168.176.191:3000';
 const predefinedColors = [
   'red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'brown', 'gray', 'cyan',
   'magenta', 'lime', 'teal', 'lavender', 'olive', 'maroon', 'navy', 'aquamarine', 'turquoise', 'silver',
@@ -160,6 +160,7 @@ const Home = () => {
               <View style={styles.proback}>
                 <View style={styles.text1}>
                   <Text>{item.expences_name}</Text>
+                  <Text>_</Text>
                   <Text style={styles.text2}>{calculateProgress(item.amount, totalIncome).toFixed(2)}%</Text>
                   <Text style={styles.text3}>{item.amount}/=</Text>
                 </View>

@@ -33,7 +33,7 @@ const SignupScreen = ({ navigation }) => {
           }
       
           try {
-            axios.post('http://192.168.169.5:3000/signup', {
+            axios.post('http://192.168.176.191:3000/signup', {
               username,
               userid,
               email,

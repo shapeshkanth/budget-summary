@@ -4,13 +4,14 @@ import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input';
 import _ from 'lodash';
 
-const SERVER_URL = 'http://192.168.169.5:3000';
+const SERVER_URL = 'http://192.168.176.191:3000';
 
 const IncomeScreen = () => {
   const [query, setQuery] = useState('');
   const [amount, setAmount] = useState('');
   const [expId, setId] = useState('');
   const [exp, setexp] = useState([]);
+  const [expe, setExpenses] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -18,7 +19,22 @@ const IncomeScreen = () => {
   useEffect(() => {
     fetchExp();
     fetchData();
+    const interval = setInterval(fetchData, 1000); // Fetch data every 10 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
+
+  const fetchExpenses = async () => {
+    try {
+      const response = await axios.get(`${SERVER_URL}/exp`);
+      setExpenses(response.data);
+    } catch (error) {
+      console.error('Error fetching incomes:', error);
+      // Optionally, you can display an error message to the user
+      // Alert.alert('Error', 'Failed to fetch incomes. Please try again later.');
+    }
+  };
 
   const fetchExp = async () => {
     try {
@@ -66,10 +82,10 @@ const IncomeScreen = () => {
       setQuery('');
       setAmount('');
       setIsEditMode(false);
-      Alert.alert('Success', 'Income updated successfully!', [{ text: 'OK' }], { cancelable: false });
+      Alert.alert('Success', 'expences updated successfully!', [{ text: 'OK' }], { cancelable: false });
     } catch (error) {
       console.error('Error updating income:', error);
-      Alert.alert('Error', 'Failed to update income. Please try again later.', [{ text: 'OK' }], { cancelable: false });
+      Alert.alert('Error', 'Failed to update expences. Please try again later.', [{ text: 'OK' }], { cancelable: false });
     }
   };
 
@@ -83,7 +99,7 @@ const IncomeScreen = () => {
       fetchExp();
       setQuery('');
       setAmount('');
-      Alert.alert('Success', 'Income created successfully!', [{ text: 'OK' }], { cancelable: false });
+      Alert.alert('Success', 'expences created successfully!', [{ text: 'OK' }], { cancelable: false });
     } catch (error) {
       console.error('Error creating income:', error);
     }
@@ -93,10 +109,10 @@ const IncomeScreen = () => {
     try {
       await axios.delete(`${SERVER_URL}/expences/${expId}`);
       fetchExp();
-      Alert.alert('Success', 'Income deleted successfully!', [{ text: 'OK' }], { cancelable: false });
+      Alert.alert('Success', 'expences deleted successfully!', [{ text: 'OK' }], { cancelable: false });
     } catch (error) {
       console.error('Error deleting income:', error);
-      Alert.alert('Error', 'Failed to delete income. Please try again later.', [{ text: 'OK' }], { cancelable: false });
+      Alert.alert('Error', 'Failed to delete expences. Please try again later.', [{ text: 'OK' }], { cancelable: false });
     }
   };
 
